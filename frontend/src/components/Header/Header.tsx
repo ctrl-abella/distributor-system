@@ -24,7 +24,6 @@ export default function Header(){
                     <FaShoppingCart className={styles.icon}/>
                 </div>
             </div>
-           
         </header>
     )
     

@@ -1,0 +1,56 @@
+.footer {
+    width: 100%;
+    
+    background-color: var(--color-primary);
+}
+.footerGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0px 24px;
+    gap: 32px;
+}
+@media (max-width: 768px) {
+    .footerGrid {
+        grid-template-columns: 1fr;
+    }
+}
+.contactGrid {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+
+}
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.icon {
+    font-size: 1.1rem;
+    color: white;
+}
+
+.linksGrid {
+    display: flex;    
+}
+.linksList {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 32px;
+
+    margin: 0;
+    padding: 0;
+
+
+}
+.linksList a {
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+.disclaimerGrid {
+    display: flex;
+    flex-direction: column;
+    
+}
