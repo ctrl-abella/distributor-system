@@ -2,9 +2,10 @@
   --color-primary: #375337;
   --color-secondary: #c5e0d9;
 
-  --color-background: white;
+  --color-background: rgb(240, 247, 247);
 }
 
 body {
   font-family: "Poppins", sans-serif;
+  background-color: var(--color-background);
 }

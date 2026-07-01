@@ -1,12 +1,27 @@
 import Header from "../components/Header/Header.tsx";
 import Footer from "../components/Footer/Footer.tsx";
+import type { ReactNode } from "react";
+import styles from "../layouts/MainLayout.module.css"
 
-export default function MainLayout(){
+
+interface MainLayoutProps {
+    children: ReactNode;
+}
+
+
+
+export default function MainLayout({ children }: MainLayoutProps) {
     return (
         <>
-        <Header/>
+        <div className={styles.layout}>
+            <Header />
 
-        <Footer/>
+            <main className={styles.main}>
+                {children}
+            </main>
+
+            <Footer />
+        </div>
         </>
     )
 }

@@ -1,0 +1,14 @@
+.btn--primary {
+    color: var(--color-secondary);
+    border-radius: 16px;
+    border: 2px solid var(--color-primary);
+    padding: 10px 24px;
+    
+    background-color: var(--color-primary);
+}
+
+.btn--primary:hover {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}

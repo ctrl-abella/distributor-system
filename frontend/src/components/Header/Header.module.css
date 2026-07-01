@@ -37,7 +37,7 @@
    
 }
 
-.navItem {
+.navLink {
     position: relative;
 
     display: flex;
@@ -46,35 +46,28 @@
 
     height: 64px;
     padding: 0 18px;
-}
-.navItem a {
+
     text-decoration: none;
     color: var(--color-secondary);
     font-weight: 500;
 }
-.navItem::after {
+
+.navLink::after {
     content: "";
-
     position: absolute;
-
-    bottom: 0;
-
     left: 50%;
+    bottom: 0;
     transform: translateX(-50%);
 
     width: 0;
     height: 3px;
-
     border-radius: 999px;
-
     background: white;
-
     transition: width .25s ease;
 }
-.active::after {
-    width: 28px;
-}
-.navItem:hover::after {
+
+.navLink:hover::after,
+.navLinkActive::after {
     width: 28px;
 }
 .headerActions {
@@ -101,7 +94,7 @@
         align-items: center;
         justify-content: center;
     }
-    .navList {
+    nav {
         display: none;
     }
 }

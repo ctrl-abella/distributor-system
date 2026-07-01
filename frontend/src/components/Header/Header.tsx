@@ -1,6 +1,7 @@
 import styles from "./Header.module.css";
 import logo from "../../assets/images/Lifestyles-Independent-Distributor-Logo.png";
 import { FaBars, FaHeart, FaShoppingCart } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -20,16 +21,50 @@ export default function Header() {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li className={`${styles.navItem} ${styles.active}`}>
-              <a href="">Home</a>
+              <NavLink 
+              to="/" 
+              end
+              className={({ isActive }) =>
+                `${styles.navLink} ${
+                  isActive ? styles.navLinkActive : ""
+                }`
+              }>
+              Home
+              </NavLink>
             </li>
             <li className={styles.navItem}>
-              <a href="">Shop</a>
+              <NavLink 
+              to="/shop"
+              className={({ isActive }) =>
+                `${styles.navLink} ${
+                  isActive ? styles.navLinkActive : ""
+                }`
+              }
+              >
+                Shop
+                </NavLink>
             </li>
             <li className={styles.navItem}>
-              <a href="">About</a>
+              <NavLink 
+              to="/about"
+              className={({ isActive }) =>
+                `${styles.navLink} ${
+                  isActive ? styles.navLinkActive : ""
+                }`
+              }
+              >About</NavLink>
             </li>
             <li className={styles.navItem}>
-              <a href="">Contact</a>
+              <NavLink 
+              to="/contact"
+              className={({ isActive }) =>
+                `${styles.navLink} ${
+                  isActive ? styles.navLinkActive : ""
+                }`
+              }
+              >
+                Contact
+                </NavLink>
             </li>
           </ul>
         </nav>
