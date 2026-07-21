@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --color-primary: #375337;
   --color-secondary: #c5e0d9;
@@ -8,4 +14,11 @@
 body {
   font-family: "Poppins", sans-serif;
   background-color: var(--color-background);
+}
+h1 {
+  color: var(--color-primary);
+  margin: 0;
+}
+p {
+  margin-top: 1rem;
 }
