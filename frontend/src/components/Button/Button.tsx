@@ -1,5 +1,5 @@
 import "./Button.css"
-type ButtonVariant = | "primary" | "danger" | "outline";
+type ButtonVariant = | "primary" | "danger" | "outline"| "icon";
 
 type ButtonProps = {
     children: React.ReactNode;

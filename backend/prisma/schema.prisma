@@ -13,6 +13,7 @@ model Product {
   sku String @unique
   name String
   description String?
+  benefits Json?
 
   price Decimal @db.Decimal(10,2)
   stock Int @default(0)
@@ -32,7 +33,7 @@ model Product {
 
 model Category {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   description String?
   products Product[]
 
