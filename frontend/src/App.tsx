@@ -7,6 +7,7 @@ import Contact from "./pages/Contact/Contact";
 
 import './App.css'
 import MainLayout from './layouts/MainLayout'
+import FloatingActionButton from "./components/FloatingActionButton/FloatingActionButton";
 
 function App() {
  
@@ -19,7 +20,9 @@ function App() {
           <Route path="/about" element={<About/>}></Route>
           <Route path="/contact" element={<Contact/>}></Route>
         </Routes>
+        <FloatingActionButton/>
       </MainLayout>
+      
       
     
   )
