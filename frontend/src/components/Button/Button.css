@@ -30,8 +30,8 @@
     border-radius: 6px;
 }
 p, span {
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 1rem;
+    font-weight: 600;
     line-height: 20px;
 }
 svg {

@@ -1,3 +1,4 @@
+import type { Category } from "./Category";
 export interface Product {
     id: number;
     name: string;
@@ -7,4 +8,5 @@ export interface Product {
     stock: number;
     imageUrl?: string;
 
+    category: Category;
 }

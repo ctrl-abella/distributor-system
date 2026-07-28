@@ -1,13 +1,16 @@
 import styles from "../Home/Home.module.css";
 import Button from "../../components/Button/Button.tsx";
-import ProductCard from "../../components/Cards/FeaturedProductCard/FeaturedProductCard.tsx";
+import FeaturedProductCard from "../../components/Cards/FeaturedProductCard/FeaturedProductCard.tsx";
 import type { Product } from "../../types/Product.ts";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/products.ts";
+import ProductModal from "../../components/ProductModal/ProductModal.tsx";
 
 
 export default function Home(){
     const [products, setProducts] = useState<Product[]>([]);
+    const [selectedProduct, setSelectedProduct] =
+    useState<Product | null>(null);
 
     useEffect(() => {
         async function loadProducts(){
@@ -37,13 +40,18 @@ export default function Home(){
             <p>Your Daily Dose of Wellness, Exclusively from Intra Health Essentials Philippines</p>
             <div className={styles["featured-products-container"]}>
                 {products.map((product) => (
-                    <ProductCard
+                    <FeaturedProductCard
                         key={product.id}
                         product={product}
+                        onClick={setSelectedProduct}
                     />
                 ))}
             </div>
         </div>
+        <ProductModal
+            product={selectedProduct}
+            onClose={() => setSelectedProduct(null)}
+        />
 
         </>
         

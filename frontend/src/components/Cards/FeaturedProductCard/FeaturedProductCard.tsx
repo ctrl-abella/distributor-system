@@ -5,16 +5,21 @@ import Button from "../../Button/Button";
 
 
 type Props = {
-    product: Product
+    product: Product,
+    onClick: (product: Product) => void;
 };
 
 
 export default function ProductCard({
     product,
+    onClick,
 }: Props){
     
     return(
-        <div className={styles["featured-product-card"]}>
+        <div 
+        className={styles["featured-product-card"]}
+        onClick={() => onClick(product)}
+        >
             <div className={styles["product-image-container"]}>
                 <img src={`http://localhost:3000${product.imageUrl}`} alt={product.name} />
             </div>
