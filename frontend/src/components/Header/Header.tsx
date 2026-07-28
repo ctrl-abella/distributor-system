@@ -2,12 +2,27 @@ import styles from "./Header.module.css";
 import logo from "../../assets/images/Lifestyles-Independent-Distributor-Logo.png";
 import { FaBars, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import Sidebar  from "./Sidebar";
+import { navigation } from "../../constants/navigation";
+
+
 
 export default function Header() {
+ 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <header className={styles.header}>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
       <div className={styles.headerContainer}>
-        <button className={styles.menuButton}>
+        <button 
+        className={styles.menuButton}
+        onClick={()=> setIsSidebarOpen(true)}
+        >
           <FaBars />
         </button>
         <div className={styles.logoContainer}>
@@ -20,52 +35,21 @@ export default function Header() {
 
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li className={`${styles.navItem} ${styles.active}`}>
-              <NavLink 
-              to="/" 
-              end
-              className={({ isActive }) =>
-                `${styles.navLink} ${
-                  isActive ? styles.navLinkActive : ""
-                }`
-              }>
-              Home
-              </NavLink>
-            </li>
-            <li className={styles.navItem}>
-              <NavLink 
-              to="/shop"
-              className={({ isActive }) =>
-                `${styles.navLink} ${
-                  isActive ? styles.navLinkActive : ""
-                }`
-              }
-              >
-                Shop
-                </NavLink>
-            </li>
-            <li className={styles.navItem}>
-              <NavLink 
-              to="/about"
-              className={({ isActive }) =>
-                `${styles.navLink} ${
-                  isActive ? styles.navLinkActive : ""
-                }`
-              }
-              >About</NavLink>
-            </li>
-            <li className={styles.navItem}>
-              <NavLink 
-              to="/contact"
-              className={({ isActive }) =>
-                `${styles.navLink} ${
-                  isActive ? styles.navLinkActive : ""
-                }`
-              }
-              >
-                Contact
-                </NavLink>
-            </li>
+            {navigation.map((item) => (
+        <li key={item.path} className={styles.navItem}>
+            <NavLink
+                to={item.path}
+                end={item.path === "/"}
+                className={({ isActive }) =>
+                    `${styles.navLink} ${
+                        isActive ? styles.navLinkActive : ""
+                    }`
+                }
+            >
+                {item.label}
+            </NavLink>
+        </li>
+    ))}
           </ul>
         </nav>
         <div className={styles.headerActions}>

@@ -1,0 +1,81 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 280px;
+  height: 100vh;
+
+  background: white;
+
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarOpen {
+  transform: translateX(0);
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s;
+
+  z-index: 999;
+}
+
+.backdropOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebarHeader {
+  display: flex;
+  justify-content: flex-end;
+
+  padding: 1rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+}
+
+.navLink {
+  display: block;
+
+  padding: 1rem 1.5rem;
+
+  text-decoration: none;
+  color: #333;
+}
+
+.navLink:hover {
+  background: #f3f3f3;
+}
+
+.navLinkActive {
+  color: var(--color-primary);
+  font-weight: 600;
+}
