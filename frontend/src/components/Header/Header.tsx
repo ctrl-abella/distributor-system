@@ -5,12 +5,20 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Sidebar  from "./Sidebar";
 import { navigation } from "../../constants/navigation";
+import { useCart } from "../../hooks/useCart";
 
 
 
 export default function Header() {
  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { cart } = useCart();
+  
+  const totalItems = cart.reduce(
+        (total, item) => total + item.quantity,
+        0 
+    );
+  const badgeText = totalItems > 99 ? "99+" : totalItems;
 
   return (
     <header className={styles.header}>
@@ -54,7 +62,15 @@ export default function Header() {
         </nav>
         <div className={styles.headerActions}>
           <FaHeart className={styles.icon} />
-          <FaShoppingCart className={styles.icon} />
+          <div className={styles.cartContainer}>
+            <FaShoppingCart className={styles.icon} />
+
+            {totalItems > 0 && (
+              <span className={styles.cartBadge}>
+                {badgeText}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </header>

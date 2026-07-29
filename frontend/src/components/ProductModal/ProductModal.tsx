@@ -1,7 +1,9 @@
 import styles from "./ProductModal.module.css";
-import { FaTimes, FaMinus, FaPlus } from "react-icons/fa";
+import { FaTimes, FaMinus, FaPlus, FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
+import { useCart } from "../../hooks/useCart";
 import type { Product } from "../../types/Product";
+import Button  from "../Button/Button";
 
 type ProductModalProps = {
     product: Product | null;
@@ -13,6 +15,7 @@ export default function ProductModal({
     onClose,
 }: ProductModalProps){
     const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useCart();
 
     if(!product) return null;
 
@@ -54,10 +57,12 @@ export default function ProductModal({
                             <div className={styles.benefits}>
                             <h3>Benefits</h3>
 
-                            <ul>
+                            <ul className={styles["benefitsList"]}>
                                 {benefits.map((benefit) => (
+                                
                                 <li key={benefit}>
-                                    {benefit}
+                                    <FaCheckCircle className={styles["checkIcon"]}/>
+                                    <span>{benefit}</span>
                                 </li>
                                 ))}
                             </ul>
@@ -81,9 +86,9 @@ export default function ProductModal({
                             </button>
                             </div>
 
-                            <button className={styles.cartButton}>
-                            Add to Cart
-                            </button>
+                            <Button
+                            onClick={() => addToCart(product, quantity)}
+                            >Add to Cart</Button>
                     </div>
                 </div>
             </div>

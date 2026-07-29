@@ -81,6 +81,41 @@
     cursor: pointer;
     transition: color 0.2s ease;
 }
+.cartContainer {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.cartBadge {
+    position: absolute;
+
+    top: -11px;
+    right: -30px;
+
+    width: fit-content;
+    height: 20px;
+
+    padding: 0 5px;
+
+    border-radius: 999px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #e53935;
+    color: white;
+
+    font-size: 0.7rem;
+    font-weight: 600;
+
+    border: 2px solid var(--color-primary);
+}
 .menuButton {
     display: none;
 }
