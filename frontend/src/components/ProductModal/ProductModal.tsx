@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCart } from "../../hooks/useCart";
 import type { Product } from "../../types/Product";
 import Button  from "../Button/Button";
+import { localUrl } from "../../constants/localUrl";
 
 type ProductModalProps = {
     product: Product | null;
@@ -37,7 +38,7 @@ export default function ProductModal({
                 <div className={styles["content"]}>
                     <div className={styles["imageSection"]}>
                         <img 
-                        src={`http://localhost:3000${product.imageUrl}`} 
+                        src={`${localUrl}${product.imageUrl}`} 
                         alt={product.name}
                         className={styles["image"]} 
                         />
@@ -87,7 +88,11 @@ export default function ProductModal({
                             </div>
 
                             <Button
-                            onClick={() => addToCart(product, quantity)}
+                            onClick={() => {
+                                addToCart(product, quantity);
+                                onClose();
+                            }
+                        }
                             >Add to Cart</Button>
                     </div>
                 </div>

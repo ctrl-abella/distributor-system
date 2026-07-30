@@ -119,6 +119,9 @@
 .menuButton {
     display: none;
 }
+.menuButton:hover {
+    cursor: pointer;
+}
 
 @media (max-width: 768px) {
 

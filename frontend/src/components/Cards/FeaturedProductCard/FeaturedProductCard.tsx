@@ -1,6 +1,8 @@
 import type { Product } from "../../../types/Product";
 import styles from "../FeaturedProductCard/FeaturedProductCard.module.css";
 import Button from "../../Button/Button";
+import { localUrl } from "../../../constants/localUrl";
+
 
 
 
@@ -21,7 +23,7 @@ export default function ProductCard({
         onClick={() => onClick(product)}
         >
             <div className={styles["product-image-container"]}>
-                <img src={`http://localhost:3000${product.imageUrl}`} alt={product.name} />
+                <img src={`${localUrl}${product.imageUrl}`} alt={product.name} />
             </div>
             <h2>{product.name}</h2>
             <p>{product.description}</p>

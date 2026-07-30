@@ -1,0 +1,87 @@
+.shop-product-card {
+    flex: 0 0 clamp(120px, 24vw, 100px);
+    background-color: white;
+    border-radius: 6px;
+
+    box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 6px 16px rgba(0, 0, 0, 0.06);
+
+    .product-image-container {
+        position: relative;
+        border-radius: 6px;
+        margin: 1rem;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        background-color: var(--color-secondary);
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    h2, h3, h4 {
+        font-size: 1.2rem;
+    }
+    p {
+        font-size: 1rem;
+        color: gray;
+    }
+}
+.productInformation {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+.favoriteIcon {
+    position: absolute;
+    color: var(--color-secondary);
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 100%;
+
+
+    top: 15px;
+    right: 15px;
+
+    min-width: 30px;
+    height: 30px;
+
+    padding: 0 5px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.favoriteIcon:hover {
+    cursor: pointer;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);   
+}
+.cartButton {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: none;
+    border-radius: 50%;
+
+    color: var(--color-secondary);
+    background-color: var(--color-primary);
+}
+.cartButton:hover {
+    cursor: pointer;
+    color: var(--color-primary);
+    background-color: var(--color-secondary);
+}
+.actionButton {
+    display: flex;
+
+    justify-content: end;
+    align-items: center;
+
+    padding-bottom: 10px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
