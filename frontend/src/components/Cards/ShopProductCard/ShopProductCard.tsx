@@ -28,7 +28,7 @@ export default function ShopProductCard({
                 <div className={styles.productInformation}>
                     <h2>{product.name}</h2> 
                     <p>{product.category.name}</p>
-                    <h5>₱{product.price}</h5>
+                    <h4>₱{product.price}</h4>
                 </div>
                 <div className={styles.actionButton}>
                     <Button

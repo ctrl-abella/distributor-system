@@ -1,0 +1,22 @@
+.pageIntroduction {
+    text-align: justify;
+}
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 24px;
+
+    margin-bottom: 1rem;
+}
+.submitContainer {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    padding: 0px 1rem;
+
+}

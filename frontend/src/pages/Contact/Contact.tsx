@@ -1,5 +1,134 @@
+import styles from "./Contact.module.css";
+import TextField from "../../components/TextField/TextField";
+import Button from "../../components/Button/Button";
+import { useState } from "react";
+
 export default function Contact(){
+    const [form, setForm] = useState({
+        fullName: "",
+        contactNumber: "",
+        email: "",
+        subject: "",
+    });
+    const [errors, setErrors] = useState({
+        fullName: "",
+        contactNumber: "",
+        email: "",
+        subject: "",
+    });
+    const handleChange =
+    (field: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        setForm(prev => ({
+            ...prev,
+            [field]: e.target.value
+        }));
+
+       
+        setErrors(prev => ({
+            ...prev,
+            [field]: ""
+        }));
+    };
+    const handleSubmit = () => {
+
+        const newErrors = {
+            fullName: "",
+            contactNumber: "",
+            email: "",
+            subject: ""
+        };
+
+        if (!form.fullName.trim())
+            newErrors.fullName = "Full name is required.";
+
+        if (!form.contactNumber.trim()) {
+            newErrors.contactNumber = "Contact number is required.";
+        } 
+        else if (!/^09\d{9}$/.test(form.contactNumber)) {
+            newErrors.contactNumber =
+                "Enter a valid 11-digit mobile number.";
+        } else if (form.contactNumber.length !== 11) {
+            newErrors.contactNumber =
+                "Contact number must be exactly 11 digits.";
+        } else if (!form.contactNumber.startsWith("09")) {
+            newErrors.contactNumber =
+                "Contact number must start with 09.";
+        }
+
+        if (!form.email.trim()) {
+            newErrors.email = "Email is required.";
+        } else if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
+        ) {
+            newErrors.email = "Enter a valid email address.";
+        }
+
+        if (!form.subject.trim())
+            newErrors.subject = "Subject is required.";
+
+        setErrors(newErrors);
+
+        const hasErrors = Object.values(newErrors)
+            .some(error => error !== "");
+
+        if (hasErrors) return;
+
+        
+    };
     return(
-        <h1>Contact</h1>
+        <>
+        <div className={styles.pageIntroduction}>
+            <h1>Have any Questions?</h1>
+            <p>Intra Health Essentials Philippines is here to help you. Contact our customer service team regarding orders, shipping, and product-related queries.</p>
+        </div>
+        <div className={styles.contactForm}>
+            <TextField 
+            label="Full Name"
+            name="fullName"
+            inputMode="text"
+            value={form.fullName}
+            error={errors.fullName}
+            onChange={handleChange("fullName")}
+            placeholder="Enter Full Name"
+            />
+            <TextField
+            label="Contact Number"
+            name="contactNumber"
+            type="tel"
+            inputMode="numeric"
+            value={form.contactNumber}
+            error={errors.contactNumber}
+            onChange={handleChange("contactNumber")}
+            placeholder="e.g 09278191232"
+            />
+            <TextField
+            label="Email"
+            name="email"
+            inputMode="text"
+            value={form.email}
+            error={errors.email}
+            onChange={handleChange("email")}
+            placeholder="example@domain.com"
+            />
+            <TextField
+            label="Subject"
+            name="subject"
+            inputMode="text"
+            value={form.subject}
+            error={errors.subject}
+            onChange={handleChange("subject")}
+            
+            />
+            <div className={styles.submitContainer}>
+                <Button
+                onClick={handleSubmit}
+                >Submit</Button>
+            </div>
+            
+        </div>
+        </>
+        
     );
 }
