@@ -1,8 +1,13 @@
+import { useProducts } from "../../hooks/useProducts";
+import { NavLink } from "react-router-dom";
+
 import styles from "../Footer/Footer.module.css";
 import { FaPhoneAlt, FaMapMarkerAlt, FaClock, FaRegEnvelope, FaCaretRight } from "react-icons/fa";
 import logo from "../../assets/images/Lifestyles-Independent-Distributor-Logo.png";
 
 export default function Footer() {
+
+    const { products } = useProducts();
     return(
         <footer className={styles.footer}>
             <div className={styles.footerGrid}>
@@ -42,12 +47,15 @@ export default function Footer() {
                 <div className={styles.linksGrid}>
                     <ul className={styles.linksList}>
                         <h1>Shop products</h1>
-                        <li><a href=""><FaCaretRight className={styles.icon}/>Intra</a></li>
-                        <li><a href=""><FaCaretRight/>Nutria Plus</a></li>
-                        <li><a href=""><FaCaretRight/>Cardio Life</a></li>
-                        <li><a href=""><FaCaretRight/>FibreLife</a></li>
-                        <li><a href=""><FaCaretRight/>Better Together Kit</a></li>
-                        <li><a href=""><FaCaretRight/>Shop All</a></li>
+                        {products.map((product) => (
+                            <li key={product.id}>
+                                <NavLink to={`/products/${product.id}`}>
+                                    <FaCaretRight className={styles.icon}/>{product.name}
+                                </NavLink>
+                            </li>
+                        ))
+                        }
+                        <li><a href="/shop"><FaCaretRight className={styles.icon}/>Shop All</a></li>
                     </ul>
                 </div>
                 <div className={styles.disclaimerGrid}>

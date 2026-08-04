@@ -1,9 +1,11 @@
 import styles from "./ProductModal.module.css";
-import { FaTimes, FaMinus, FaPlus, FaCheckCircle } from "react-icons/fa";
+import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
 import { useCart } from "../../hooks/useCart";
 import type { Product } from "../../types/Product";
+
 import Button  from "../Button/Button";
+import QuantitySelector from "../QuantitySelector/QuantitySelector";
 import { localUrl } from "../../constants/localUrl";
 
 type ProductModalProps = {
@@ -68,23 +70,13 @@ export default function ProductModal({
                             </ul>
                             </div>
 
-                            <div className={styles.quantity}>
-                            <button
-                                onClick={() =>
-                                setQuantity((q) => Math.max(1, q - 1))
-                                }
+                            <QuantitySelector
+                            quantity={quantity}
+                            onIncrease={() => setQuantity(q => q + 1)}
+                            onDecrease={() => setQuantity(q => Math.max(1, q - 1))}
                             >
-                                <FaMinus />
-                            </button>
 
-                            <span>{quantity}</span>
-
-                            <button
-                                onClick={() => setQuantity((q) => q + 1)}
-                            >
-                                <FaPlus />
-                            </button>
-                            </div>
+                            </QuantitySelector>
 
                             <Button
                             onClick={() => {

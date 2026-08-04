@@ -1,7 +1,11 @@
+import { useState } from "react";
+
 import styles from "./Contact.module.css";
 import TextField from "../../components/TextField/TextField";
 import Button from "../../components/Button/Button";
-import { useState } from "react";
+import TextArea from "../../components/TextArea/TextArea";
+
+
 
 export default function Contact(){
     const [form, setForm] = useState({
@@ -9,6 +13,7 @@ export default function Contact(){
         contactNumber: "",
         email: "",
         subject: "",
+        message: ""
     });
     const [errors, setErrors] = useState({
         fullName: "",
@@ -18,7 +23,7 @@ export default function Contact(){
     });
     const handleChange =
     (field: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 
         setForm(prev => ({
             ...prev,
@@ -26,10 +31,12 @@ export default function Contact(){
         }));
 
        
-        setErrors(prev => ({
-            ...prev,
-            [field]: ""
-        }));
+        if (field in errors) {
+            setErrors(prev => ({
+                ...prev,
+                [field]: "",
+            }));
+        }
     };
     const handleSubmit = () => {
 
@@ -119,7 +126,13 @@ export default function Contact(){
             value={form.subject}
             error={errors.subject}
             onChange={handleChange("subject")}
-            
+            />
+            <TextArea
+                label="Message (Optional)"
+                name="message"
+                value={form.message}
+                placeholder="Type your message..."
+                onChange={handleChange("message")}
             />
             <div className={styles.submitContainer}>
                 <Button

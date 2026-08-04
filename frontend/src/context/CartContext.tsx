@@ -16,6 +16,13 @@ type CartContextType = {
     removeFromCart: (
         productId: number
     ) => void;
+    increaseQuantity: (
+        productId: number
+    ) => void;
+
+    decreaseQuantity: (
+        productId: number
+    ) => void;
 };
 
 export const CartContext =

@@ -1,22 +1,21 @@
 import styles from "./QuantitySelector.module.css";
-import type { Dispatch, SetStateAction } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 type QuantitySelectorProp = {
     quantity: number,
-    setQuantity: Dispatch<SetStateAction<number>>
+    onIncrease: () => void,
+    onDecrease: () => void
 }
 
 export default function QuantitySelector({ 
     quantity,
-    setQuantity
+    onIncrease,
+    onDecrease
  }: QuantitySelectorProp){
     return(
         <div className={styles.quantity}>
             <button
-                onClick={() =>
-                    setQuantity((q) => Math.max(1, q - 1))
-                }
+                onClick={onDecrease}
             >
                 <FaMinus />
             </button>
@@ -24,7 +23,7 @@ export default function QuantitySelector({
             <span>{quantity}</span>
 
             <button
-                 onClick={() => setQuantity((q) => q + 1)}
+                 onClick={onIncrease}
             >
                 <FaPlus />
             </button>

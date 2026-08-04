@@ -6,6 +6,7 @@ import { useState } from "react";
 import Sidebar  from "./Sidebar";
 import { navigation } from "../../constants/navigation";
 import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,6 +14,8 @@ export default function Header() {
  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { cart } = useCart();
+
+  const navigate = useNavigate();
   
   const totalItems = cart.reduce(
         (total, item) => total + item.quantity,
@@ -63,7 +66,10 @@ export default function Header() {
         <div className={styles.headerActions}>
           <FaHeart className={styles.icon} />
           <div className={styles.cartContainer}>
-            <FaShoppingCart className={styles.icon} />
+            <FaShoppingCart 
+            className={styles.icon}
+            onClick={() => navigate(`/cart`)}
+             />
 
             {totalItems > 0 && (
               <span className={styles.cartBadge}>

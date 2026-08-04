@@ -6,7 +6,7 @@ import { useCart } from "../../hooks/useCart";
 
 import ProductGallery from "./components/ProductGallery/ProductGallery";
 import ProductInfo from "./components/ProductInfo/ProductInfo";
-import QuantitySelector from "./components/QuantitySelector/QuantitySelector";
+import QuantitySelector from "../../components/QuantitySelector/QuantitySelector";
 import Button from "../../components/Button/Button";
 import ProductTabs from "./components/ProductTabs/ProductTabs";
 import RelatedProduct from "./components/RelatedProduct/RelatedProducts";
@@ -59,7 +59,8 @@ export default function Product(){
                     />
                     <QuantitySelector
                     quantity={quantity}
-                    setQuantity={setQuantity}
+                    onIncrease={() => setQuantity(q => q + 1)}
+                    onDecrease={() => setQuantity(q => Math.max(1, q - 1))}
                     />
                     <Button>Buy Now <FaShoppingBag></FaShoppingBag></Button>
                     <Button 

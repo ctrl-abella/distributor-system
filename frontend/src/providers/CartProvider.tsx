@@ -64,6 +64,31 @@ export function CartProvider({
             )
         );
     }
+    function increaseQuantity(productId: number) {
+        setCart(previous =>
+            previous.map(item =>
+                item.product.id === productId
+                    ? {
+                        ...item,
+                        quantity: item.quantity + 1,
+                    }
+                    : item
+            )
+        );
+    }
+
+    function decreaseQuantity(productId: number) {
+        setCart(previous =>
+            previous.map(item =>
+                item.product.id === productId
+                    ? {
+                        ...item,
+                        quantity: Math.max(1, item.quantity - 1),
+                    }
+                    : item
+            )
+        );
+    }
 
     return (
         <CartContext.Provider
@@ -71,6 +96,8 @@ export function CartProvider({
                 cart,
                 addToCart,
                 removeFromCart,
+                increaseQuantity,
+                decreaseQuantity
             }}
         >
             {children}

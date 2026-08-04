@@ -22,7 +22,9 @@
     width: 100%;
 }
 .label {
-    text-align: start;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
 }
 .errorInput {
     color: var(--color-error);
