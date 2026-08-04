@@ -8,32 +8,32 @@ const prisma = new PrismaClient({
 });
 
 async function main(){
-    const categoryName = "Capsule";
+    const productID = 7;
 
-    const category = await prisma.category.findUnique({
-        where: {
-            name: categoryName,
-        },
-    });
-    if(!category){
-        throw new Error(`${categoryName} category not found.`);
-    }
+    await prisma.product.update({
+    where: {
+        id: productID,
+    },
+    data: {
+        
+        fullDescription:
+            "FibreLife is a premium dietary supplement that supports digestive health and overall well-being. Packed with a blend of natural ingredients, including soluble and insoluble fibers. FibreLife promotes regular bowel movements, helps maintain healthy cholesterol levels, and supports a healthy weight. This product combines the benefits of plant-based fibers with essential nutrients, making it a perfect addition to any daily wellness routine.",
 
-    await prisma.product.create({
-        data: {
-            sku: "INH02",
-            name: "Intra (Capsule)",
-            description: "Intra is a premium botanical food supplement formulated with a unique blend of 23 botanical extracts, designed to support and enhance your overall well-being.",
-            benefits: [
-                "Boosts Immunity",
-                "Supports Overall Wellness",
-                "Combats Stress and Toxins"
-            ],
-            price: 1880,
-            imageUrl: "/uploads/products/Intra Capsule.png",
-            categoryId: category.id,
+        keyBenefits: {
+            "Supports Digestive Health":
+                "Aids in promoting regular bowel movements and preventing constipation",
+            "Heart Health":
+                "Helps maintain healthy cholesterol levels and supports cardiovascular health",
+            "Weight Management":
+                "The fiber content promotes feeling of fullness, helping control appetite and manage weight",
+            "Natural Ingredients": 
+                "Made with a blend of soluble and insoluble fibers, derived from plants to ensure the highest quality and effectiveness",
+            "Convenient":
+                "Easy to take, FibreLife provides an effortless way to incorporate fiber into your diet"
         },
-    });
+        
+    },
+});
 }
 main()
 

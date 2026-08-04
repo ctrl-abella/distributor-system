@@ -7,19 +7,20 @@ import Button from "../../Button/Button";
 
 type ShopProductCardProps = {
     product: Product,
-    onClick: (product: Product) => void,
+    onClick: () => void,
+    onAddToCart: () => void
 }
 export default function ShopProductCard({
     product,
-    onClick
+    onClick,
+    onAddToCart
 }: ShopProductCardProps){
 
-    
     return(
         <>
             <div 
             className={styles["shop-product-card"]}
-            
+            onClick={onClick}
             >
                 <div className={styles["product-image-container"]}>
                     <span><FaHeart className={styles.favoriteIcon}/></span>
@@ -35,7 +36,7 @@ export default function ShopProductCard({
                         className={styles.cartButton}
                         onClick={ (e) => {
                             e.stopPropagation();
-                            onClick(product);
+                            onAddToCart();
                         }}
                     ><FaPlus></FaPlus></Button>
                 </div>

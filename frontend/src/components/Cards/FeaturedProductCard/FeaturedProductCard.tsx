@@ -2,6 +2,7 @@ import type { Product } from "../../../types/Product";
 import styles from "../FeaturedProductCard/FeaturedProductCard.module.css";
 import Button from "../../Button/Button";
 import { localUrl } from "../../../constants/localUrl";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -12,11 +13,11 @@ type Props = {
 };
 
 
-export default function ProductCard({
+export default function FeaturedProductCard({
     product,
     onClick,
 }: Props){
-    
+    const navigate = useNavigate();
     return(
         <div 
         className={styles["featured-product-card"]}
@@ -26,9 +27,15 @@ export default function ProductCard({
                 <img src={`${localUrl}${product.imageUrl}`} alt={product.name} />
             </div>
             <h2>{product.name}</h2>
-            <p>{product.description}</p>
+            <p>{product.shortDescription}</p>
             <div className={styles["action-buttons"]}>
-                <Button variant="primary">
+                <Button 
+                variant="primary"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/products/${product.id}`);
+                }
+                }>
                   <span className={styles["button-text"]}>Order Now</span>
                 </Button>
             </div>

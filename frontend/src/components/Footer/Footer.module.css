@@ -2,6 +2,16 @@
     width: 100%;
     
     background-color: var(--color-primary);
+
+    p {
+        color: var(--color-secondary);
+    }
+    span {
+        color: var(--color-secondary);
+    }
+    h1 {
+        color: var(--color-secondary);
+    }
 }
 .footerGrid {
     display: grid;
@@ -18,39 +28,55 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 32px;
+    gap: 2rem;
 
 }
 .contactItem {
     display: flex;
+    justify-content: start;
     align-items: center;
     gap: 12px;
 }
+.logo {
+    height: 100px;
+    min-width: 100px;
+    object-fit: contain;
+}
 .icon {
     font-size: 1.1rem;
-    color: white;
+    color: var(--color-complementary);
 }
 
 .linksGrid {
-    display: flex;    
+    display: flex;
+    justify-content: start;
+    align-items: center;
 }
+
 .linksList {
     display: flex;
     flex-direction: column;
     list-style: none;
-    gap: 32px;
+    gap: 16px;
 
     margin: 0;
     padding: 0;
 
-
 }
 .linksList a {
     font-weight: 500;
-    color: var(--secondary-color);
+    margin: 0;
+    color: var(--color-secondary);
 }
 .disclaimerGrid {
     display: flex;
     flex-direction: column;
     
+}
+a {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-decoration: none;
+
 }

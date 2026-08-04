@@ -52,9 +52,8 @@ export default function ProductModal({
                             ₱{product.price}
                         </p>
                         <p className={styles.description}>
-                            {product.description}
+                            {product.fullDescription}
                         </p>
-
                             <div className={styles.benefits}>
                             <h3>Benefits</h3>
 

@@ -1,0 +1,8 @@
+.relatedProductsSection {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(220px,1fr));
+    gap: 32px;
+    padding: 0px 36px;
+    margin-bottom: 1rem;
+}

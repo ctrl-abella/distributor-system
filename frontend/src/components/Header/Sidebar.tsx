@@ -1,18 +1,14 @@
 import styles from "./Sidebar.module.css";
 import { FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { navigation } from "../../constants/navigation";
 
 type SidebarProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const navigation = [
-  { label: "Home", path: "/" },
-  { label: "Shop", path: "/shop" },
-  { label: "About", path: "/about" },
-  { label: "Contact", path: "/contact" },
-];
+
 
 export default function Sidebar({
   isOpen,

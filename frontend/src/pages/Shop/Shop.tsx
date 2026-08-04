@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../api/products";
 import type { Product } from "../../types/Product";
 import ShopProductCard from "../../components/Cards/ShopProductCard/ShopProductCard";
@@ -9,6 +10,7 @@ export default function Shop(){
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProduct, setSelectedProduct] =
         useState<Product | null>(null);
+    const navigate = useNavigate();
 
 
     useEffect( () => {
@@ -30,7 +32,8 @@ export default function Shop(){
            <div className={styles.productsSection}>
                 {products.map((product) => (
                 <ShopProductCard
-                onClick={setSelectedProduct}
+                onClick={() => navigate(`/products/${product.id}`)}
+                onAddToCart={() => setSelectedProduct(product)}
                 product={product}
                 key={product.id}
                 />
