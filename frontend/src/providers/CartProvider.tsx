@@ -14,6 +14,11 @@ export function CartProvider({
 
     const [cart, setCart] =
         useState<CartItem[]>([]);
+    const subtotal = cart.reduce(
+        (total, item) =>
+            total + item.product.price * item.quantity,
+        0
+    )
 
     function addToCart(
         product: Product,
@@ -95,6 +100,7 @@ export function CartProvider({
             value={{
                 cart,
                 addToCart,
+                subtotal,
                 removeFromCart,
                 increaseQuantity,
                 decreaseQuantity

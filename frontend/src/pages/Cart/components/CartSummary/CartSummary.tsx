@@ -2,15 +2,10 @@ import styles from "./CartSummary.module.css";
 import Button from "../../../../components/Button/Button";
 
 type Props = {
-
     subtotal:number;
-
     shipping:number;
-
     total:number;
-
     onCheckout:() => void;
-
 };
 
 export default function CartSummary({
@@ -65,8 +60,6 @@ export default function CartSummary({
             >
                 Proceed to Checkout
             </Button>
-
         </aside>
-
     );
 }

@@ -7,6 +7,7 @@ import type { CartItem } from "../types/CartItem";
 
 type CartContextType = {
     cart: CartItem[];
+    subtotal: number;
 
     addToCart: (
         product: Product,

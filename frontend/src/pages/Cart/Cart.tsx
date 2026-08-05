@@ -1,5 +1,6 @@
 import styles from "./Cart.module.css";
 import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 import CartItem from "./components/CartItem/CartItem";
 import CartSummary from "./components/CartSummary/CartSummary";
@@ -8,6 +9,7 @@ import CartSummary from "./components/CartSummary/CartSummary";
 
 export default function Cart(){
     const { cart, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+    const navigate = useNavigate();
     const subtotal = cart.reduce(
         (sum,item)=>
             sum +
@@ -19,40 +21,40 @@ export default function Cart(){
     return(
         <div className={styles.layout}>
 
-    <section>
+        <section>
 
-        {cart.map(item=>
+            {cart.map(item=>
 
-            <CartItem
-                key={item.product.id}
-                item={item}
-                onIncrease={() => 
-                    increaseQuantity(item.product.id)
-                }
-                onDecrease={() =>
-                    decreaseQuantity(item.product.id)
-                }
-                onRemove={() => 
-                    removeFromCart(item.product.id)
-                }
-            />
+                <CartItem
+                    key={item.product.id}
+                    item={item}
+                    onIncrease={() => 
+                        increaseQuantity(item.product.id)
+                    }
+                    onDecrease={() =>
+                        decreaseQuantity(item.product.id)
+                    }
+                    onRemove={() => 
+                        removeFromCart(item.product.id)
+                    }
+                />
 
-        )}
+            )}
 
-    </section>
+        </section>
 
-    <CartSummary
+        <CartSummary
 
-        subtotal={subtotal}
+            subtotal={subtotal}
 
-        shipping={0}
+            shipping={0}
 
-        total={subtotal}
+            total={subtotal}
 
-        onCheckout={() => {}}
+            onCheckout={() => {navigate(`/checkout`)}}
 
-    />
+        />
 
-</div>
-    )
-}
+    </div>
+        )
+    }
