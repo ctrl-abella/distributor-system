@@ -7,41 +7,30 @@ datasource db {
   provider = "postgresql"
 }
 
-//Product Model
 model Product {
-  id Int @id @default(autoincrement())
-  sku String @unique
-  name String
+  id               Int      @id @default(autoincrement())
+  sku              String   @unique
+  name             String
   shortDescription String?
-  fullDescription String?
-
-  benefits Json?
-  keyBenefits Json?
-  instruction String?
-
-  price Decimal @db.Decimal(10,2)
-  stock Int @default(0)
-
-  imageUrl String?
-
-  isActive Boolean @default(true)
-
-  categoryId Int
-  category Category @relation(fields: [categoryId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  price            Decimal  @db.Decimal(10, 2)
+  stock            Int      @default(0)
+  imageUrl         String?
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  categoryId       Int
+  benefits         Json?
+  fullDescription  String?
+  keyBenefits      Json?
+  instruction      String?
+  category         Category @relation(fields: [categoryId], references: [id])
 }
-
 
 model Category {
-  id Int @id @default(autoincrement())
-  name String @unique
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
   description String?
-  products Product[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
 }
-

@@ -8,7 +8,7 @@ const prisma = new PrismaClient({
 });
 
 async function main(){
-    const productID = 7;
+    const productID = 8;
 
     await prisma.product.update({
     where: {
@@ -17,19 +17,14 @@ async function main(){
     data: {
         
         fullDescription:
-            "FibreLife is a premium dietary supplement that supports digestive health and overall well-being. Packed with a blend of natural ingredients, including soluble and insoluble fibers. FibreLife promotes regular bowel movements, helps maintain healthy cholesterol levels, and supports a healthy weight. This product combines the benefits of plant-based fibers with essential nutrients, making it a perfect addition to any daily wellness routine.",
+            "Intra is a powerful botanical beverage made from 23 time-tested herbal extracts, specially formulated to support the body's eight biological systems. With over 30 years of proven results, this all-natural supplement helps enhance overall wellness, energy levels, and immune function.",
 
         keyBenefits: {
-            "Supports Digestive Health":
-                "Aids in promoting regular bowel movements and preventing constipation",
-            "Heart Health":
-                "Helps maintain healthy cholesterol levels and supports cardiovascular health",
-            "Weight Management":
-                "The fiber content promotes feeling of fullness, helping control appetite and manage weight",
-            "Natural Ingredients": 
-                "Made with a blend of soluble and insoluble fibers, derived from plants to ensure the highest quality and effectiveness",
-            "Convenient":
-                "Easy to take, FibreLife provides an effortless way to incorporate fiber into your diet"
+            "Antioxidants": "Rich in antioxidants for cellular protection",
+            "Immune Support": "Supports immune system health",
+            "Strengthens Body": "Balances and strengthens the body's systems",
+            "Energy and Vitality": "Boosts energy and vitality",
+            "Digestion and Detoxification": "Aids in digestion and detoxification"
         },
         
     },
