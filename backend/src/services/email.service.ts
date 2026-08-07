@@ -1,5 +1,4 @@
-import { transporter } from "../lib/email";
-
+import { resend } from "../lib/resend";
 
 export async function sendContactInquiry(
     name: string,
@@ -7,10 +6,11 @@ export async function sendContactInquiry(
     contactNumber: string,
     subject: string,
     message: string
-){
-    return transporter.sendMail({
-        from: `"Distributor System" <${process.env.EMAIL_USER}>`,
-        to: process.env.COMPANY_EMAIL,
+) {
+    return resend.emails.send({
+        from: "Distributor Demo <onboarding@resend.dev>",
+        to: process.env.COMPANY_EMAIL!,
+        replyTo: email,
         subject,
         html: `
             <h2>New Contact Inquiry</h2>
@@ -21,7 +21,7 @@ export async function sendContactInquiry(
 
             <p><strong>Message:</strong></p>
 
-            <p>${message}</p>
+            <p>${message || "No message provided."}</p>
         `,
     });
 }
