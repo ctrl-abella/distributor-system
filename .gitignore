@@ -24,6 +24,4 @@ Thumbs.db
 # Prisma generated client (if generated locally)
 src/generated/
 
-# Uploaded files (if users upload images)
-uploads/
 

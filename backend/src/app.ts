@@ -4,6 +4,7 @@ import path from "path";
 
 
 import productRoutes from "./routes/product.routes";
+import contactRoutes from "./routes/contact.routes";
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(
 );
 
 app.use("/api", productRoutes);
+app.use("/api", contactRoutes)
 
 export default app;

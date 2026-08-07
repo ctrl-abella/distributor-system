@@ -44,3 +44,8 @@ svg {
     height: 20px;
     display: block;
 }
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}

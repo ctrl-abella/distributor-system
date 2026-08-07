@@ -17,7 +17,7 @@ export default function Footer() {
                     </div>
                     <div className={styles.contactItem}>
                         <FaPhoneAlt className={styles.icon}/>
-                        <span>+63 917 374 4284</span>
+                        <span>+63 975 274 6091</span>
                     </div>
                     <div className={styles.contactItem}>
                         <FaMapMarkerAlt className={styles.icon}/>
@@ -60,7 +60,7 @@ export default function Footer() {
                 </div>
                 <div className={styles.disclaimerGrid}>
                     <h1>Disclaimer:</h1>
-                    <p>This website is independently owned and operated by Jocelyn Martinez, a licensed distributor of Lifestyles Philippines.
+                    <p>This website is independently owned and operated by Jocelyn M. Pascual, a licensed distributor of Lifestyles Philippines.
                         This is not the official web page of Lifestyles Philippines or Lifestyles Global Network</p>
                 </div>
             </div>

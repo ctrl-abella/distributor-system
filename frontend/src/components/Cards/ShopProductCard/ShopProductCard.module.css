@@ -28,6 +28,9 @@
         color: gray;
     }
 }
+.shop-product-card:hover {
+    cursor: pointer;
+}
 .productInformation {
     padding-left: 1rem;
     padding-right: 1rem;

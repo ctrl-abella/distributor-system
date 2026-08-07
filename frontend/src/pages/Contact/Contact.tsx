@@ -21,6 +21,8 @@ export default function Contact(){
         email: "",
         subject: "",
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleChange =
     (field: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -38,7 +40,9 @@ export default function Contact(){
             }));
         }
     };
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        
+        if(isSubmitting) return;
 
         const newErrors = {
             fullName: "",
@@ -81,6 +85,45 @@ export default function Contact(){
             .some(error => error !== "");
 
         if (hasErrors) return;
+
+        setIsSubmitting(true);
+        
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_BASE_URL}/contact`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(form),
+                }
+            );
+
+            const data = await response.json();
+            if(!response.ok) {
+                throw new Error(data.message);
+            }
+            alert("Inquiry Submitted!");
+            setForm({
+                fullName: "",
+                contactNumber: "",
+                email: "",
+                subject: "",
+                message: ""
+            });
+
+        } catch (error) {
+            if (error instanceof Error) {
+                alert(error.message);
+            } else {
+                alert("Something went wrong.");
+            }
+        }
+        finally {
+
+            setIsSubmitting(false);
+        }
 
         
     };
@@ -137,7 +180,8 @@ export default function Contact(){
             <div className={styles.submitContainer}>
                 <Button
                 onClick={handleSubmit}
-                >Submit</Button>
+                disabled={isSubmitting}
+                >{isSubmitting ? "Submitting..." : "Submit"}</Button>
             </div>
             
         </div>
