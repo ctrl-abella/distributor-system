@@ -1,0 +1,11 @@
+.shippingAddressContainer {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 24px;
+
+    margin-bottom: 1rem;
+}

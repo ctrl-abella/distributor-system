@@ -1,0 +1,19 @@
+.billingInformationContainer {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 10px 24px;
+
+    margin-bottom: 1rem;
+}
+.error {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color-error);
+}

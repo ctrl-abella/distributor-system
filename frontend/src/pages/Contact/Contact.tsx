@@ -124,8 +124,7 @@ export default function Contact(){
 
             setIsSubmitting(false);
         }
-
-        
+            
     };
     return(
         <>

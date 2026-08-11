@@ -1,0 +1,50 @@
+.container{
+    display:flex;
+    flex-direction:column;
+    gap:0.4rem;
+    width:100%;
+}
+
+.label{
+    font-size:0.95rem;
+    font-weight:600;
+    color:#333;
+}
+
+.select{
+    width:100%;
+    padding:0.8rem 1rem;
+    font-size:1rem;
+
+    border:1px solid var(--color-primary);
+    border-radius:8px;
+
+    background:white;
+    
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+    outline:none;
+    cursor:pointer;
+}
+
+.select:focus{
+    border-color: var(--color-primary);
+    box-shadow:0 0 0 3px var(--color-primary);
+}
+
+.select:disabled{
+    background:#f5f5f5;
+    cursor:not-allowed;
+}
+
+.errorBorder{
+    border-color:#dc3545;
+}
+
+.error{
+    font-size:.85rem;
+    color:#dc3545;
+}

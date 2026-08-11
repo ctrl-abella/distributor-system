@@ -19,6 +19,6 @@ app.use(
 );
 
 app.use("/api", productRoutes);
-app.use("/api", contactRoutes)
+app.use("/api", contactRoutes);
 
 export default app;
