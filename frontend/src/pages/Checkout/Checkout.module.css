@@ -2,3 +2,12 @@
     width: 100%;
     padding: 10px 2rem;
 }
+.actionButtonContainer {
+    width: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    
+}

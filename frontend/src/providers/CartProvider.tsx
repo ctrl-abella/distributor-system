@@ -18,7 +18,10 @@ export function CartProvider({
         (total, item) =>
             total + item.product.price * item.quantity,
         0
-    )
+    );
+    const clearCart = () => {
+        setCart([]);
+    }
 
     function addToCart(
         product: Product,
@@ -103,7 +106,8 @@ export function CartProvider({
                 subtotal,
                 removeFromCart,
                 increaseQuantity,
-                decreaseQuantity
+                decreaseQuantity,
+                clearCart
             }}
         >
             {children}

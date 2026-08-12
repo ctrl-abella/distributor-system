@@ -3,6 +3,7 @@ import styles from "./ShippingAddress.module.css";
 
 import TextField from "../../../../components/TextField/TextField";
 import ComboBox from "../../../../components/ComboBox/ComboBox";
+import TextArea from "../../../../components/TextArea/TextArea";
 import { regions as philippine_regions  } from "../../../../constants/regions";
 import { provinces as philippine_provinces } from "../../../../constants/provinces";
 import { cities } from "../../../../constants/cities";
@@ -59,7 +60,7 @@ export default function ShippingAddress({
             value={form.city}
             options={cityOptions}
             onChange={ (e) => handleChange("city", e.target.value)}
-            error={errors.province}
+            error={errors.city}
             />
             
             <TextField
@@ -72,6 +73,14 @@ export default function ShippingAddress({
             onChange={ (e) => handleChange("postalCode", e.target.value)}
             >
             </TextField>
+            <TextArea
+            label="Address"
+            name="address"
+            value={form.address}
+            error={errors.address}
+            placeholder="Enter your address"
+            onChange={ (e) => handleChange("address", e.target.value)}
+            />
             
         </div>
     )

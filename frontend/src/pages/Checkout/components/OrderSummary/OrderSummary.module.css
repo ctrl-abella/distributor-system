@@ -7,7 +7,7 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 
-    padding: 0px 5rem;
+    padding: 0px 2rem;
 
 }
 .subtotalContainer {
@@ -16,7 +16,7 @@
     align-items: center;
 
     width: 100%;
-    padding: 0px 30px;
+    padding: 0px 10px;
 
     border-bottom: 1px solid #ececec;
 
@@ -32,7 +32,7 @@
     align-items: center;
 
     width: 100%;
-    padding: 0px 30px;
+    padding: 0px 10px;
 
     border-bottom: 1px solid #ececec;
 

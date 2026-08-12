@@ -47,14 +47,11 @@ export default function Cart(){
 
             subtotal={subtotal}
 
-            shipping={0}
-
             total={subtotal}
 
             onCheckout={() => {navigate(`/checkout`)}}
 
         />
-
     </div>
         )
     }

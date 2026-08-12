@@ -3,14 +3,12 @@ import Button from "../../../../components/Button/Button";
 
 type Props = {
     subtotal:number;
-    shipping:number;
     total:number;
     onCheckout:() => void;
 };
 
 export default function CartSummary({
     subtotal,
-    shipping,
     total,
     onCheckout,
 }:Props){
@@ -28,20 +26,6 @@ export default function CartSummary({
                 <span>Subtotal</span>
 
                 <span>₱{subtotal}</span>
-
-            </div>
-
-            <div className={styles.row}>
-
-                <span>Shipping</span>
-
-                <span>
-
-                    {shipping === 0
-                        ? "FREE"
-                        : `₱${shipping}`}
-
-                </span>
 
             </div>
 

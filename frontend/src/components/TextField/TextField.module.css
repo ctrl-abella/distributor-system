@@ -21,6 +21,13 @@
     height: 2rem;
     width: 100%;
 }
+
+.textField:active {
+    border: 3px solid var(--color-primary);
+}
+.textField:focus {
+    border: 3px solid var(--color-primary);
+}
 .label {
     font-size: 0.95rem;
     font-weight: 600;

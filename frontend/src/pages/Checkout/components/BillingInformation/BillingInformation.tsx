@@ -13,7 +13,7 @@ export default function BillingInformation({
     
     return(
         <div className={styles.billingInformationContainer}>
-            <h2>Billing</h2>
+            <h2>Payment</h2>
             {paymentMethods.map((method) => {
                 const Icon = method.icon;
 

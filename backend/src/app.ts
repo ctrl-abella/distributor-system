@@ -5,6 +5,8 @@ import path from "path";
 
 import productRoutes from "./routes/product.routes";
 import contactRoutes from "./routes/contact.routes";
+import orderRoutes from "./routes/order.routes";
+
 
 const app = express();
 
@@ -20,5 +22,6 @@ app.use(
 
 app.use("/api", productRoutes);
 app.use("/api", contactRoutes);
+app.use("/api", orderRoutes);
 
 export default app;
