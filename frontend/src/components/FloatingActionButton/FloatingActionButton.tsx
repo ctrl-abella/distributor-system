@@ -2,7 +2,13 @@ import styles from "./FloatingActionButton.module.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../../hooks/useCart";
 
-export default function FloatingActionButton() {
+type FloatingActionButtonProp = {
+    onClick: () => void;
+}
+
+export default function FloatingActionButton({
+    onClick
+}: FloatingActionButtonProp) {
     const { cart } = useCart();
 
     const totalItems = cart.reduce(
@@ -14,6 +20,7 @@ export default function FloatingActionButton() {
         <button
             className={styles["fab"]}
             aria-label="Open Cart"
+            onClick={onClick}
         >
             <FaShoppingCart/>
             {totalItems > 0 && (

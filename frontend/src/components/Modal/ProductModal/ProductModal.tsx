@@ -1,12 +1,12 @@
 import styles from "./ProductModal.module.css";
 import { FaTimes, FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
-import { useCart } from "../../hooks/useCart";
-import type { Product } from "../../types/Product";
+import { useCart } from "../../../hooks/useCart";
+import type { Product } from "../../../types/Product";
 
-import Button  from "../Button/Button";
-import QuantitySelector from "../QuantitySelector/QuantitySelector";
-import { localUrl } from "../../constants/localUrl";
+import Button  from "../../Button/Button";
+import QuantitySelector from "../../QuantitySelector/QuantitySelector";
+import { localUrl } from "../../../constants/localUrl";
 
 type ProductModalProps = {
     product: Product | null;

@@ -1,3 +1,4 @@
+import { useCart } from "../../../../hooks/useCart";
 import styles from "./CartSummary.module.css";
 import Button from "../../../../components/Button/Button";
 
@@ -12,7 +13,9 @@ export default function CartSummary({
     total,
     onCheckout,
 }:Props){
+    const { cart } = useCart();
 
+    const isCartEmpty = cart.length === 0;
     return(
 
         <aside className={styles.summary}>
@@ -41,6 +44,7 @@ export default function CartSummary({
 
             <Button
             onClick={onCheckout}
+            disabled={isCartEmpty}
             >
                 Proceed to Checkout
             </Button>

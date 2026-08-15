@@ -19,7 +19,7 @@ export default function Cart(){
     );
 
     return(
-        <div className={styles.layout}>
+        <div className={styles.cartContainer}>
 
         <section>
 

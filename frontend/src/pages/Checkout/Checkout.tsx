@@ -1,5 +1,7 @@
 import { useCart } from "../../hooks/useCart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 
 import styles from "./Checkout.module.css";
 
@@ -8,14 +10,41 @@ import OrderSummary from "./components/OrderSummary/OrderSummary";
 import CustomerInformation from "./components/CustomerInformation/CustomerInformation";
 import ShippingAddress from "./components/ShippingAddress/ShippingAddress";
 import BillingInformation from "./components/BillingInformation/BillingInformation";
+import { getProductById } from "../../api/products";
 
 import type { CheckoutForm } from "../../types/CheckoutForm";
 import type { CheckoutErrors } from "../../types/CheckoutErrors";
+import type { CartItem } from "../../types/CartItem";
+import type { Product } from "../../types/Product";
+
 
 export default function Checkout(){ 
     
-    const { cart, subtotal, clearCart } = useCart();
+    const location = useLocation();
+
+    const buyNowProductId = location.state?.productId;
+
+    const [buyNowProduct, setBuyNowProduct] = useState<Product | null>(null);
+
+    const buyNowQuantity = location.state?.quantity;
+
+
+    const { cart, clearCart } = useCart();
+    const checkOutCart: CartItem[] = buyNowProduct 
+        ? [
+            {
+                product: buyNowProduct,
+                quantity: buyNowQuantity
+            }
+        ]
+        : cart;
+    const checkoutSubtotal = checkOutCart.reduce(
+        (total, item) =>
+            total + Number(item.product.price) * item.quantity,
+        0
+    );
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const isCartEmpty = cart.length === 0;
 
     const [form, setForm] = useState<CheckoutForm>({
         fullName: "",
@@ -60,6 +89,10 @@ export default function Checkout(){
     const handleSubmit = async () => {
         console.log("HANDLE SUBMIT CALLED");
         if(isSubmitting) return;
+        if (cart.length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
 
         const newErrors = {
             fullName: "",
@@ -149,10 +182,7 @@ export default function Checkout(){
                             postalCode: form.postalCode
                         },
                         paymentMethod: form.paymentMethod,
-                        items: cart.map(item => ({
-                            productId: item.product.id,
-                            quantity: item.quantity
-                        })),
+                        items: checkOutCart,
                     }),
                 }
             );
@@ -185,13 +215,27 @@ export default function Checkout(){
         }
 
     }
+    useEffect(() => {
+        if (!buyNowProductId) return;
+
+        async function loadProduct() {
+                try {
+                    const product = await getProductById(buyNowProductId);
+                    setBuyNowProduct(product);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            loadProduct();
+        }, [buyNowProductId]);
 
 
     return(
         <div className={styles.checkOutContainer}>  
             <OrderSummary
-                cart={cart}
-                subtotal={subtotal}
+                cart={checkOutCart}
+                subtotal={checkoutSubtotal}
                 >    
             </OrderSummary>
             <CustomerInformation
@@ -212,7 +256,7 @@ export default function Checkout(){
             <div className={styles.actionButtonContainer}>
                 <Button
                 onClick={handleSubmit}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isCartEmpty}
                 >
                     {isSubmitting ? "Placing Order..." : "Place Order"}
                 </Button>

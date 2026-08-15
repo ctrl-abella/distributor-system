@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Product } from "../../types/Product";
 import ShopProductCard from "../../components/Cards/ShopProductCard/ShopProductCard";
-import ProductModal from "../../components/ProductModal/ProductModal";
+import ProductModal from "../../components/Modal/ProductModal/ProductModal";
 import styles from "./Shop.module.css";
 import { useProducts } from "../../hooks/useProducts";
 

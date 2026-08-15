@@ -7,11 +7,16 @@ import Product from "./pages/Product/Product";
 import Cart from "./pages/Cart/Cart";
 import Checkout from "./pages/Checkout/Checkout";
 
+import CartModal from "./components/Modal/CartModal/CartModal";
+
 import './App.css'
 import MainLayout from './layouts/MainLayout'
 import FloatingActionButton from "./components/FloatingActionButton/FloatingActionButton";
+import { useState } from "react";
 
 function App() {
+
+  const [cartOpen, setCartOpen] = useState(false);
  
   return (
     
@@ -25,12 +30,19 @@ function App() {
           <Route path="/products/:id" element={<Product/>}></Route>
 
         </Routes>
-        <FloatingActionButton/>
+        <FloatingActionButton
+        onClick={() => setCartOpen(true)}
+        />
+        {cartOpen && (
+          <CartModal
+          onClose={() => setCartOpen(false)}
+          />
+        )}
+        
+
       </MainLayout>
       
-      
-    
-  )
+  );
 }
 
 export default App;

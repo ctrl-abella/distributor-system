@@ -1,61 +1,107 @@
-.card{
+.card {
+    display: grid;
+    grid-template-columns: auto 120px minmax(180px, 1fr) auto;
+    align-items: center;
 
-    display:flex;
+    gap: 1rem;
 
-    gap:24px;
+    width: 100%;
+    box-sizing: border-box;
 
-    align-items:center;
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:20px;
+    padding: 20px;
     margin-top: 1rem;
 
+    background: white;
+    border-radius: 12px;
+
     box-shadow:
-        0 8px 24px rgba(0,0,0,.05);
+        0 8px 24px rgba(0, 0, 0, .05);
 }
 
-.card img{
+.card img {
+    width: 120px;
+    height: 120px;
 
-    width:120px;
+    object-fit: contain;
 
-    aspect-ratio:1;
-
-    object-fit:contain;
+    background-color: var(--color-secondary);
+    border-radius: 16px;
 }
 
-.info{
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:.5rem;
+    min-width: 0;
 }
 
-.info h3{
-
-    margin:0;
+.info h3 {
+    margin: 0;
 }
 
-.info p{
-
-    color:#666;
+.info p {
+    margin: 0;
+    color: #666;
 }
 
-.remove{
+.info span {
+    font-weight: 600;
+}
 
-    border:none;
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    background:none;
+.remove {
+    width: 32px;
+    height: 32px;
 
-    cursor:pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    color:#d33;
+    padding: 0;
 
-    font-size:1.2rem;
+    border: none;
+    background: none;
+
+    cursor: pointer;
+    color: #d33;
+
+    font-size: 1.2rem;
+}
+@media (max-width: 600px) {
+    .card {
+        grid-template-columns: 1fr;
+        justify-items: center;
+
+        gap: 1rem;
+
+        padding: 1.5rem;
+    }
+
+    .remove {
+        justify-self: end;
+    }
+
+    .card img {
+        width: 160px;
+        height: 160px;
+    }
+
+    .info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .info h3 {
+        font-size: 1.1rem;
+    }
+
+    .quantity {
+        justify-self: center;
+    }
 }

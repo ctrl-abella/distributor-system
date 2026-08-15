@@ -4,13 +4,15 @@ import FeaturedProductCard from "../../components/Cards/FeaturedProductCard/Feat
 import type { Product } from "../../types/Product.ts";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/products.ts";
-import ProductModal from "../../components/ProductModal/ProductModal.tsx";
+import ProductModal from "../../components/Modal/ProductModal/ProductModal.tsx";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home(){
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProduct, setSelectedProduct] =
     useState<Product | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function loadProducts(){
@@ -34,7 +36,9 @@ export default function Home(){
             <h1>Your Gateway to Holistic Wellness</h1>
             <p>At Intra Health Essentials Philippines, we are dedicated to helping you achieve a healthier, more vibrant lifestyle through the trusted power of Lifestyles products</p>
         </div>
-        <Button variant="primary">Shop Now &#128722;</Button>
+        <Button variant="primary" onClick={() => navigate("/shop")}>
+            Shop Now &#128722;
+        </Button>
         <div className={styles.featuredProductsSection}>
             <h1>Featured Products</h1>
             <p>Your Daily Dose of Wellness, Exclusively from Intra Health Essentials Philippines</p>

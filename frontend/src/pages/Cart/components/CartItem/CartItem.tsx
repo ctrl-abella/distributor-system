@@ -1,5 +1,5 @@
 import styles from "./CartItem.module.css";
-import { FaTrash } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import QuantitySelector from "../../../../components/QuantitySelector/QuantitySelector";
 import { localUrl } from "../../../../constants/localUrl";
 
@@ -24,6 +24,14 @@ export default function CartItem({
     return(
 
         <div className={styles.card}>
+            <button
+                className={styles.remove}
+                onClick={onRemove}
+            >
+                <FaTimes/>
+
+            </button>
+            
 
             <img
                 src={`${localUrl}${item.product.imageUrl}`}
@@ -42,25 +50,16 @@ export default function CartItem({
 
                 </span>
 
+            </div>
+            <div className={styles.quantity}>
                 <QuantitySelector
                     quantity={item.quantity}
                     onIncrease={onIncrease}
                     onDecrease={onDecrease}
                 />
-
             </div>
 
-            <button
-
-                className={styles.remove}
-
-                onClick={onRemove}
-
-            >
-
-                <FaTrash/>
-
-            </button>
+            
 
         </div>
 

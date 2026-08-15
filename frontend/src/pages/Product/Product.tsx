@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import type { Product } from "../../types/Product";
 import { getProductById, getRelatedProducts } from "../../api/products";
@@ -10,13 +10,14 @@ import QuantitySelector from "../../components/QuantitySelector/QuantitySelector
 import Button from "../../components/Button/Button";
 import ProductTabs from "./components/ProductTabs/ProductTabs";
 import RelatedProduct from "./components/RelatedProduct/RelatedProducts";
-import ProductModal from "../../components/ProductModal/ProductModal";
+import ProductModal from "../../components/Modal/ProductModal/ProductModal";
 
 import styles from "./Product.module.css"
 import { FaShoppingCart, FaShoppingBag } from "react-icons/fa";
 
 
 export default function Product(){
+    const navigate = useNavigate();
     const [product, setProduct] = useState<Product | null>(null);
     const [quantity, setQuantity] = useState(1);
     
@@ -63,7 +64,19 @@ export default function Product(){
                     onIncrease={() => setQuantity(q => q + 1)}
                     onDecrease={() => setQuantity(q => Math.max(1, q - 1))}
                     />
-                    <Button>Buy Now <FaShoppingBag></FaShoppingBag></Button>
+                    <Button 
+                    onClick={() => {
+                        if(!product) return;
+
+                        navigate("/checkout", {
+                            state: {
+                                productId: product.id,
+                                quantity,
+                            }
+                        });
+                    }}>
+                        Buy Now <FaShoppingBag></FaShoppingBag>
+                    </Button>
                     <Button 
                     onClick={ () => {
                         if(!product) return;

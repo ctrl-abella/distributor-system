@@ -31,10 +31,11 @@
         font-size: 11px;
     }
     .action-buttons {
+        display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 1rem;
-        padding: 12px 12px;
+        
     }
 }
 .featured-product-card:hover {
