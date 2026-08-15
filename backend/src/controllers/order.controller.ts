@@ -36,10 +36,6 @@ export async function createOrder(
             items,
         }: OrderRequest = req.body;
 
-        // ----------------------------------------
-        // Basic request validation
-        // ----------------------------------------
-
         if (!customer || !shipping || !paymentMethod || !items) {
             return res.status(400).json({
                 message: "Missing required order information.",
@@ -51,11 +47,6 @@ export async function createOrder(
                 message: "Order must contain at least one item.",
             });
         }
-
-
-        // ----------------------------------------
-        // Get products from database
-        // ----------------------------------------
 
         const productIds = items.map(
             item => item.productId

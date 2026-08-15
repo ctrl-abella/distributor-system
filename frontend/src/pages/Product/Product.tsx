@@ -50,6 +50,7 @@ export default function Product(){
         <>
         <div className={styles.productContainer}>
             <div className={styles.productGrid}>
+                
                 <ProductGallery
                 product={product}
                 />
