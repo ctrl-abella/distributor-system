@@ -14,6 +14,17 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
+enum PaymentMethod {
+  COD
+  GCASH
+}
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+}
+
 model Product {
   id               Int      @id @default(autoincrement())
   sku              String   @unique
@@ -54,7 +65,9 @@ model Order {
   province       String
   postalCode     String
 
-  paymentMethod  String
+  paymentMethod  PaymentMethod
+  paymentStatus PaymentStatus @default(PENDING)
+  paymongoCheckoutSessionId String?
 
   subtotal       Decimal  @db.Decimal(10, 2)
   shippingFee    Decimal  @db.Decimal(10, 2)

@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
 import prisma from "../lib/prisma";
+import { PaymentMethod } from "../generated/prisma/enums";
 import { sendOrderNotification } from "../services/email.service";
+import { createPayMongoCheckoutSession } from "../services/paymongo.service";
 
 type OrderItemInput = {
     productId: number;
@@ -20,7 +22,7 @@ type OrderRequest = {
         address: string;
         postalCode: string;
     };
-    paymentMethod: string;
+    paymentMethod: PaymentMethod;
     items: OrderItemInput[];
 };
 
@@ -45,6 +47,11 @@ export async function createOrder(
         if (!Array.isArray(items) || items.length === 0) {
             return res.status(400).json({
                 message: "Order must contain at least one item.",
+            });
+        }
+        if(paymentMethod !== PaymentMethod.COD && paymentMethod !== PaymentMethod.GCASH){
+            return res.status(400).json({
+                message: "Invalid payment method"
             });
         }
 
@@ -151,51 +158,89 @@ export async function createOrder(
             },
         });
 
-        try {
-            await sendOrderNotification({
-                orderId: order.id,
+        
 
-                customerName: order.fullName,
-                customerEmail: order.email,
-                contactNumber: order.contactNumber,
+        if (paymentMethod === PaymentMethod.COD) {
 
-                address: order.address,
-                city: order.city,
-                province: order.province,
-                postalCode: order.postalCode,
+            try {
+                await sendOrderNotification({
+                    orderId: order.id,
 
-                paymentMethod: order.paymentMethod,
+                    customerName: order.fullName,
+                    customerEmail: order.email,
+                    contactNumber: order.contactNumber,
 
-                subtotal: order.subtotal.toString(),
-                shippingFee: order.shippingFee.toString(),
-                totalAmount: order.totalAmount.toString(),
+                    address: order.address,
+                    city: order.city,
+                    province: order.province,
+                    postalCode: order.postalCode,
 
-                items: order.items.map(item => ({
-                    productName: item.product.name,
-                    quantity: item.quantity,
-                    unitPrice: item.unitPrice.toString(),
-                    subtotal: item.subtotal.toString(),
-                })),
+                    paymentMethod: order.paymentMethod,
+
+                    subtotal: order.subtotal.toString(),
+                    shippingFee: order.shippingFee.toString(),
+                    totalAmount: order.totalAmount.toString(),
+
+                    items: order.items.map(item => ({
+                        productName: item.product.name,
+                        quantity: item.quantity,
+                        unitPrice: item.unitPrice.toString(),
+                        subtotal: item.subtotal.toString(),
+                    })),
+                });
+            } catch (emailError) {
+                console.error("Order created but owner notification failed: ", emailError);
+            }
+
+            return res.status(201).json({
+                message: "Order placed successfully.",
+                order
             })
-        } catch (emailError) {
-            console.error("Order created but owner notification failed: ", emailError);
         }
 
-        // ----------------------------------------
-        // Success
-        // ----------------------------------------
+        if(paymentMethod === PaymentMethod.GCASH){
+            const checkoutSession = await createPayMongoCheckoutSession({
+                orderId: order.id,
 
-        return res.status(201).json({
-            message: "Order placed successfully.",
-            order,
-        });
+                customer: {
+                    name: customer.fullName,
+                    email: customer.email,
+                    phone: customer.contactNumber
+                },
+                
+                items: order.items.map(item => ({
+                    name: item.product.name,
+                    amount: Number(item.unitPrice) * 100,
+                    quantity: item.quantity,
+                    currency: "PHP"
+                }))
+            });
+
+            await prisma.order.update({
+                where: {
+                    id: order.id
+                },
+                data: {
+                    paymongoCheckoutSessionId: checkoutSession.id,
+                }
+            });
+
+
+            return res.status(201).json({
+                message: "Checkout session created.",
+                orderId: order.id,
+                checkout_url: checkoutSession.attributes.checkout_url
+            });
+        }
 
     } catch (error) {
-
         console.error("Create order error:", error);
 
         return res.status(500).json({
-            message: "Failed to create order.",
+            message:
+                error instanceof Error
+                    ? error.message
+                    : "Failed to create order.",
         });
     }
 }
