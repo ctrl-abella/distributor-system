@@ -31,9 +31,15 @@ function verifyPayMongoSignature(
         .update(signedPayload)
         .digest("hex");
 
-    // Use "li" instead of "te" once you're verifying live-mode webhooks.
-    const providedSignature = parts.te ?? parts.li ?? "";
+    const isLive = process.env.NODE_ENV === "production";
 
+    const providedSignature = isLive
+        ? parts.li
+        : parts.te;
+        
+    if (!providedSignature) {
+        return false;
+    }
     // timing-safe comparison
     const expectedBuf = Buffer.from(expected, "utf8");
     const providedBuf = Buffer.from(providedSignature, "utf8");

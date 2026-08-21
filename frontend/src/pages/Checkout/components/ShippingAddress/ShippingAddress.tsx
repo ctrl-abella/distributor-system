@@ -30,7 +30,7 @@ export default function ShippingAddress({
     const cityOptions = cities
     .filter(city => city.provinceCode === form.province)
     .map(city => ({
-        value: city.code,
+        value: city.name,
         label: city.name
     }));
     

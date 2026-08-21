@@ -30,21 +30,28 @@ export default function Checkout(){
 
 
     const { cart, clearCart } = useCart();
-    const checkOutCart: CartItem[] = buyNowProduct 
-        ? [
-            {
+
+    const isBuyNow = Boolean(buyNowProductId);
+    const isLoadingBuyNow = isBuyNow && !buyNowProduct;
+
+    const checkOutCart: CartItem[] = isBuyNow
+        ? buyNowProduct
+            ? [{
                 product: buyNowProduct,
-                quantity: buyNowQuantity
-            }
-        ]
+                quantity: buyNowQuantity,
+            }]
+            : []
         : cart;
     const checkoutSubtotal = checkOutCart.reduce(
         (total, item) =>
             total + Number(item.product.price) * item.quantity,
         0
     );
+
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const isCartEmpty = cart.length === 0;
+    const isCheckoutEmpty = checkOutCart.length === 0;
+    
+
 
     const [form, setForm] = useState<CheckoutForm>({
         fullName: "",
@@ -87,10 +94,10 @@ export default function Checkout(){
         }));
     };
     const handleSubmit = async () => {
-        console.log("HANDLE SUBMIT CALLED");
         if(isSubmitting) return;
-        if (cart.length === 0) {
-        alert("Your cart is empty.");
+
+        if (checkOutCart.length === 0) {
+        alert("There are no products to checkout");
         return;
     }
 
@@ -182,17 +189,25 @@ export default function Checkout(){
                             postalCode: form.postalCode
                         },
                         paymentMethod: form.paymentMethod,
-                        items: checkOutCart,
+                        items: checkOutCart.map(item => ({
+                            productId: item.product.id,
+                            quantity: item.quantity,
+                        })),
                     }),
                 }
             );
 
             const data = await respone.json();
+            console.log(data);
 
             if(!respone.ok){
                 throw new Error(
                     data.message || "Failed to place order"
                 );
+            }
+            if(form.paymentMethod === "GCASH"){
+                window.location.href = data.checkout_url;
+                return;
             }
             console.log("Order created: ", data.order);
             alert("Order placed successfully!");
@@ -256,9 +271,14 @@ export default function Checkout(){
             <div className={styles.actionButtonContainer}>
                 <Button
                 onClick={handleSubmit}
-                disabled={isSubmitting || isCartEmpty}
+                disabled={isSubmitting || isCheckoutEmpty || isLoadingBuyNow}
                 >
-                    {isSubmitting ? "Placing Order..." : "Place Order"}
+                    {isSubmitting
+                        ? "Placing Order..."
+                        : isLoadingBuyNow
+                            ? "Loading Product..."
+                            : "Place Order"
+                    }
                 </Button>
             </div>
             
