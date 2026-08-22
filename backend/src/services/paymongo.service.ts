@@ -56,8 +56,8 @@ export async function createPayMongoCheckoutSession({
                         send_email_receipt: false,
                         show_line_items: true,
 
-                        success_url: `${process.env.FRONTEND_URL}/checkout/success`,
-                        cancel_url: `${process.env.FRONTEND_URL}/checkout/cancel`
+                        success_url: `${process.env.FRONTEND_URL}/checkout/success?orderId=${orderId}`,
+                        cancel_url: `${process.env.FRONTEND_URL}/checkout/cancel?orderId=${orderId}`
                     }
                 }
             })

@@ -138,7 +138,12 @@ export async function createOrder(
                 province: shipping.province,
                 postalCode: shipping.postalCode,
 
-                paymentMethod,
+                payment: {
+                    create: {
+                        method: paymentMethod 
+                    }
+                },
+
 
                 subtotal,
                 shippingFee,
@@ -155,6 +160,7 @@ export async function createOrder(
                         product: true,
                     },
                 },
+                payment: true
             },
         });
 
@@ -174,8 +180,9 @@ export async function createOrder(
                     city: order.city,
                     province: order.province,
                     postalCode: order.postalCode,
+                    
 
-                    paymentMethod: order.paymentMethod,
+                    paymentMethod: order.payment!.method.toString(),
 
                     subtotal: order.subtotal.toString(),
                     shippingFee: order.shippingFee.toString(),
@@ -198,40 +205,43 @@ export async function createOrder(
             })
         }
 
-        if(paymentMethod === PaymentMethod.GCASH){
-            const checkoutSession = await createPayMongoCheckoutSession({
-                orderId: order.id,
+        if (paymentMethod === PaymentMethod.GCASH) {
+        const checkoutSession = await createPayMongoCheckoutSession({
+            orderId: order.id,
 
-                customer: {
-                    name: customer.fullName,
-                    email: customer.email,
-                    phone: customer.contactNumber
-                },
-                
-                items: order.items.map(item => ({
-                    name: item.product.name,
-                    amount: Number(item.unitPrice) * 100,
-                    quantity: item.quantity,
-                    currency: "PHP"
-                }))
-            });
+            customer: {
+                name: customer.fullName,
+                email: customer.email,
+                phone: customer.contactNumber,
+            },
 
-            await prisma.order.update({
-                where: {
-                    id: order.id
-                },
-                data: {
-                    paymongoCheckoutSessionId: checkoutSession.id,
-                }
-            });
+            items: order.items.map(item => ({
+                name: item.product.name,
+                amount: Number(item.unitPrice) * 100,
+                quantity: item.quantity,
+                currency: "PHP",
+            })),
+        });
 
-
-            return res.status(201).json({
-                message: "Checkout session created.",
-                orderId: order.id,
-                checkout_url: checkoutSession.attributes.checkout_url
-            });
+        if (!order.payment) {
+            throw new Error("Payment record was not created.");
         }
+
+        await prisma.payment.update({
+            where: {
+                id: order.payment.id,
+            },
+            data: {
+                paymongoCheckoutSessionId: checkoutSession.id,
+            },
+        });
+
+        return res.status(201).json({
+            message: "Checkout session created.",
+            orderId: order.id,
+            checkout_url: checkoutSession.attributes.checkout_url,
+        });
+    }
 
     } catch (error) {
         console.error("Create order error:", error);
